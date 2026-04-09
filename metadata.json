@@ -1,0 +1,5 @@
+{
+  "name": "The Scholar's Compass",
+  "description": "A gamified productivity PWA for Algerian Baccalauréat students, combining task management, focus timing, and RPG progression.",
+  "requestFramePermissions": []
+}

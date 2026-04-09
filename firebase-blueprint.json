@@ -1,0 +1,130 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user character data, stats, and settings.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "character": { "type": "object" },
+        "selectedStream": { "type": "string" },
+        "onboarded": { "type": "boolean" },
+        "theme": { "type": "string" },
+        "language": { "type": "string" },
+        "streak": { "type": "object" }
+      },
+      "required": ["uid", "username", "email"]
+    },
+    "Quest": {
+      "title": "Quest",
+      "description": "A study task or goal.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "priority": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "xpReward": { "type": "number" }
+      },
+      "required": ["id", "userId", "title", "completed"]
+    },
+    "PlannerBlock": {
+      "title": "Planner Block",
+      "description": "A scheduled item in the daily planner.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "type": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "startTime", "endTime"]
+    },
+    "Username": {
+      "title": "Username Mapping",
+      "description": "Used to enforce unique usernames.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" }
+      },
+      "required": ["uid"]
+    },
+    "PublicProfile": {
+      "title": "Public Profile",
+      "description": "Non-sensitive user data for social features.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "level": { "type": "number" },
+        "avatarUrl": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["uid", "username"]
+    },
+    "Friend": {
+      "title": "Friend",
+      "description": "A connection between two users.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "addedAt": { "type": "string" }
+      },
+      "required": ["uid", "username"]
+    },
+    "Guild": {
+      "title": "Guild",
+      "description": "A group of users studying together.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "leaderId": { "type": "string" },
+        "level": { "type": "number" },
+        "xp": { "type": "number" },
+        "memberCount": { "type": "number" }
+      },
+      "required": ["id", "name", "leaderId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile and settings."
+    },
+    "/users/{userId}/quests/{questId}": {
+      "schema": "Quest",
+      "description": "User's active and completed quests."
+    },
+    "/users/{userId}/planner/{blockId}": {
+      "schema": "PlannerBlock",
+      "description": "User's daily schedule."
+    },
+    "/users/{userId}/friends/{friendId}": {
+      "schema": "Friend",
+      "description": "User's friends list."
+    },
+    "/profiles/{userId}": {
+      "schema": "PublicProfile",
+      "description": "Publicly accessible profile data."
+    },
+    "/guilds/{guildId}": {
+      "schema": "Guild",
+      "description": "Global guilds."
+    },
+    "/usernames/{username}": {
+      "schema": "Username",
+      "description": "Global mapping of usernames to UIDs for uniqueness."
+    }
+  }
+}
